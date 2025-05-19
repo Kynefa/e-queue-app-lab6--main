@@ -149,7 +149,10 @@ exports.removeUser = async (req, res) => {
 
 exports.close = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = parseInt(req.params.id); 
+    if (isNaN(id)) {
+      return res.status(400).json({ error: 'Неправильний ID' });
+    }
     const queue = await Queue.findByPk(id);
     if (!queue) return res.status(404).json({ error: 'Queue not found' });
     queue.isOpen = false;
