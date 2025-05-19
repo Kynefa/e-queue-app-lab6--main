@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Електронна черга</title>
+</head>
+<body>
+  <h1>Електронна черга</h1>
+  <ul>
+    <ul>
+      <% queues.forEach(queue => { %>
+        <li>
+          <b><%= queue.name %></b>
+          (ID: <%= queue.id %>) —
+          <%= queue.users?.length || 0 %> людей
+          (<%= queue.isOpen ? 'відкрита' : 'закрита' %>)
+        </li>
+      <% }) %>
+    </ul>
+
+  <form method="POST" action="/next"> 
+    <input name="ownerId" placeholder="ID хазяїна">
+    <button>Наступний</button>
+  </form>
+
+  <form method="POST" action="/remove">
+    <input name="ownerId" placeholder="ID хазяїна">
+    <input name="userId" placeholder="ID користувача">
+    <button>Видалити користувача</button>
+  </form>
+
+  <form method="POST" action="/close">
+    <input name="ownerId" placeholder="ID хазяїна">
+    <button>Закрити чергу</button>
+  </form>
+
+  <form method="POST" action="/create">
+    <input name="name" placeholder="Назва черги">
+    <input name="ownerId" placeholder="ID власника">
+    <button>Створити чергу</button>
+  </form>
+
+  <form method="POST" action="/add">
+    <input name="queueId" placeholder="ID черги" type="number">
+    <input name="userId" placeholder="ID користувача">
+    <button>Зайняти місце</button>
+  </form>
+
+  <form method="POST" action="/position">
+    <input name="queueId" placeholder="ID черги" >
+    <input name="userId" placeholder="ID користувача" >
+    <button>Перевірити моє місце</button>
+  </form>
+</body>
+</html>
